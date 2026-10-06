@@ -164,7 +164,7 @@
       background: #0f172a;
       width: 100%;
       max-width: 900px;
-      height: 80vh;
+      height: 85vh;
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -181,9 +181,26 @@
       align-items: center;
     }
 
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+    }
+
     .modal-title {
       font-weight: bold;
       color: #38bdf8;
+    }
+
+    .open-btn {
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     .close-btn {
@@ -232,16 +249,7 @@
   <main>
     <div class="grid" id="gamesGrid">
       
-      <!-- 1: 2048 (HTML5 Open Source CDN) -->
-      <div class="card" data-category="arcade" data-title="2048 classic" onclick="playGame('2048 Classic', 'https://play2048.co/')">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="2048">
-        <div class="card-info">
-          <div class="card-title">2048 Classic</div>
-          <div class="card-tag">Réflexion / Arcade</div>
-        </div>
-      </div>
-
-      <!-- 2: Moto X3M (GameMonetize CDN) -->
+      <!-- Moto X3M (Lien d'intégration officiel GameDistribution) -->
       <div class="card" data-category="course" data-title="moto x3m" onclick="playGame('Moto X3M', 'https://html5.gamedistribution.com/rvvAS300/e6bb1f9d45364448880e608a1d7f6b0b/')">
         <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80" alt="Moto X3M">
         <div class="card-info">
@@ -250,16 +258,7 @@
         </div>
       </div>
 
-      <!-- 3: Hextris (GitHub Open-Source Game) -->
-      <div class="card" data-category="arcade" data-title="hextris" onclick="playGame('Hextris', 'https://hextris.io/')">
-        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Hextris">
-        <div class="card-info">
-          <div class="card-title">Hextris</div>
-          <div class="card-tag">Arcade / Puzzle</div>
-        </div>
-      </div>
-
-      <!-- 4: Geometry Dash Full Canvas -->
+      <!-- Geometry Dash -->
       <div class="card" data-category="action" data-title="geometry dash" onclick="playGame('Geometry Lite', 'https://freegeometrydash.com/lite/')">
         <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=600&q=80" alt="Geometry Dash">
         <div class="card-info">
@@ -268,21 +267,21 @@
         </div>
       </div>
 
-      <!-- 5: Snake HTML5 -->
-      <div class="card" data-category="arcade" data-title="snake html5" onclick="playGame('Snake HTML5', 'https://playsnake.org/')">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Snake">
+      <!-- Hextris -->
+      <div class="card" data-category="arcade" data-title="hextris" onclick="playGame('Hextris', 'https://hextris.io/')">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Hextris">
         <div class="card-info">
-          <div class="card-title">Snake HTML5</div>
-          <div class="card-tag">Arcade</div>
+          <div class="card-title">Hextris</div>
+          <div class="card-tag">Arcade / Puzzle</div>
         </div>
       </div>
 
-      <!-- 6: Flappy Bird Canvas -->
-      <div class="card" data-category="action" data-title="flappy bird" onclick="playGame('Flappy Bird', 'https://flappybird.io/')">
-        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Flappy Bird">
+      <!-- 2048 -->
+      <div class="card" data-category="arcade" data-title="2048 classic" onclick="playGame('2048 Classic', 'https://play2048.co/')">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="2048">
         <div class="card-info">
-          <div class="card-title">Flappy Bird</div>
-          <div class="card-tag">Action / Arcade</div>
+          <div class="card-title">2048 Classic</div>
+          <div class="card-tag">Réflexion / Arcade</div>
         </div>
       </div>
 
@@ -293,7 +292,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <span class="modal-title" id="modalTitle">Jeu</span>
-        <button class="close-btn" onclick="closeGame()">Fermer ✖</button>
+        <div class="modal-actions">
+          <a id="externalLink" href="#" target="_blank" class="open-btn">Plein écran ↗</a>
+          <button class="close-btn" onclick="closeGame()">Fermer ✖</button>
+        </div>
       </div>
       <iframe id="gameFrame" src="" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe>
     </div>
@@ -307,6 +309,7 @@
     function playGame(title, url) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('gameFrame').src = url;
+      document.getElementById('externalLink').href = url;
       document.getElementById('gameModal').style.display = 'flex';
     }
 
