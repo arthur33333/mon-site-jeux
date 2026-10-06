@@ -338,7 +338,372 @@
 
       let cards = document.getElementsByClassName('card');
       for (let card of cards) {
+  <!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArcadePulse - Jeux en Ligne Gratuits</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0b1329;
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      color: #38bdf8;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search-box {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #fff;
+      outline: none;
+      width: 100%;
+      max-width: 300px;
+      font-size: 0.9rem;
+    }
+
+    .categories {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .cat-btn.active, .cat-btn:hover {
+      background: #38bdf8;
+      color: #0f172a;
+      border-color: #38bdf8;
+      font-weight: bold;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #334155;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 20px rgba(56, 189, 248, 0.25);
+      border-color: #38bdf8;
+    }
+
+    .card img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      background-color: #0f172a;
+    }
+
+    .card-info {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .card-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #f8fafc;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      color: #38bdf8;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    /* Modal Lecteur */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      width: 100%;
+      max-width: 900px;
+      height: 80vh;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #38bdf8;
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+    }
+
+    .modal-header {
+      padding: 12px 20px;
+      background: #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .close-btn {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .modal iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    footer {
+      background: #0f172a;
+      border-top: 1px solid #1e293b;
+      text-align: center;
+      padding: 20px;
+      color: #64748b;
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>ArcadePulse</h1>
+    <p>Jouez directement en ligne – Sans aucun téléchargement</p>
+    
+    <div class="controls">
+      <input type="text" id="searchInput" class="search-box" placeholder="Rechercher un jeu..." onkeyup="filterGames()">
+      <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">Tous</button>
+        <button class="cat-btn" onclick="filterCategory('action', this)">Action</button>
+        <button class="cat-btn" onclick="filterCategory('course', this)">Course</button>
+        <button class="cat-btn" onclick="filterCategory('arcade', this)">Arcade</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid" id="gamesGrid">
+      
+      <!-- 1 -->
+      <div class="card" data-category="action" data-title="geometry dash" onclick="playGame('Geometry Dash', 'https://scratch.mit.edu/projects/105500895/embed')">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Geometry Dash">
+        <div class="card-info">
+          <div class="card-title">Geometry Dash</div>
+          <div class="card-tag">Action / Runner</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" data-category="arcade" data-title="pacman" onclick="playGame('Pac-Man', 'https://gamemonetize.com/feed/v1/game/pacman/')">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Pac-Man">
+        <div class="card-info">
+          <div class="card-title">Pac-Man</div>
+          <div class="card-tag">Arcade</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" data-category="course" data-title="subway surfers 3d" onclick="playGame('Subway Runner 3D', 'https://scratch.mit.edu/projects/382020227/embed')">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80" alt="Subway Runner">
+        <div class="card-info">
+          <div class="card-title">Subway Runner 3D</div>
+          <div class="card-tag">Course / Action</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" data-category="arcade" data-title="flappy bird" onclick="playGame('Flappy Bird', 'https://scratch.mit.edu/projects/18318288/embed')">
+        <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=600&q=80" alt="Flappy Bird">
+        <div class="card-info">
+          <div class="card-title">Flappy Bird</div>
+          <div class="card-tag">Arcade</div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" data-category="action" data-title="minecraft 2d" onclick="playGame('Paper Minecraft', 'https://scratch.mit.edu/projects/10128407/embed')">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Minecraft 2D">
+        <div class="card-info">
+          <div class="card-title">Paper Minecraft</div>
+          <div class="card-tag">Action / Aventure</div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card" data-category="arcade" data-title="snake classic" onclick="playGame('Snake Classic', 'https://scratch.mit.edu/projects/10018151/embed')">
+        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80" alt="Snake">
+        <div class="card-info">
+          <div class="card-title">Snake Classic</div>
+          <div class="card-tag">Arcade</div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card" data-category="action" data-title="super mario" onclick="playGame('Super Mario Bros', 'https://scratch.mit.edu/projects/16382101/embed')">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Mario">
+        <div class="card-info">
+          <div class="card-title">Super Mario Bros</div>
+          <div class="card-tag">Action / Plateforme</div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card" data-category="course" data-title="hill climb racing" onclick="playGame('Hill Climb Racing', 'https://scratch.mit.edu/projects/10043130/embed')">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80" alt="Hill Climb">
+        <div class="card-info">
+          <div class="card-title">Hill Climb Racing</div>
+          <div class="card-tag">Course</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="modal" id="gameModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title" id="modalTitle">Jeu</span>
+        <button class="close-btn" onclick="closeGame()">Fermer ✖</button>
+      </div>
+      <iframe id="gameFrame" src="" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 ArcadePulse. Tous droits réservés.</p>
+  </footer>
+
+  <script>
+    function playGame(title, url) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('gameFrame').src = url;
+      document.getElementById('gameModal').style.display = 'flex';
+    }
+
+    function closeGame() {
+      document.getElementById('gameModal').style.display = 'none';
+      document.getElementById('gameFrame').src = '';
+    }
+
+    function filterGames() {
+      let input = document.getElementById('searchInput').value.toLowerCase();
+      let cards = document.getElementsByClassName('card');
+
+      for (let i = 0; i < cards.length; i++) {
+        let title = cards[i].getAttribute('data-title');
+        if (title.includes(input)) {
+          cards[i].style.display = "flex";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+
+    function filterCategory(cat, btn) {
+      let buttons = document.getElementsByClassName('cat-btn');
+      for (let b of buttons) b.classList.remove('active');
+      btn.classList.add('active');
+
+      let cards = document.getElementsByClassName('card');
+      for (let card of cards) {
         if (cat === 'all' || card.getAttribute('data-category') === cat) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      }
+    }
+  </script>
+</body>
+</html>      if (cat === 'all' || card.getAttribute('data-category') === cat) {
           card.style.display = "flex";
         } else {
           card.style.display = "none";
