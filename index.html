@@ -3,26 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcadePulse - Finnie Escape</title>
+    <title>ArcadePulse - Portail de Jeux</title>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #fff; padding: 20px; }
+        header { text-align: center; margin-bottom: 30px; }
+        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 8px; }
+        p.subtitle { color: #94a3b8; font-size: 1rem; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .game-card {
+            background: #1e293b;
+            border-radius: 12px;
             overflow: hidden;
-            background-color: #000;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
         }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
+        .game-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
         }
+        .game-card img { width: 100%; height: 160px; object-fit: cover; }
+        .game-card p { padding: 15px; font-weight: bold; font-size: 1rem; color: #f8fafc; }
     </style>
 </head>
 <body>
 
-    <iframe src="https://html5.gamemonetize.co/9m7b1g3apiu7nazxcn863ymcmga4ud3y/" allowfullscreen></iframe>
+    <header>
+        <h1>🎮 ArcadePulse</h1>
+        <p class="subtitle">Sélectionnez un jeu pour commencer à jouer</p>
+    </header>
+
+    <div class="grid-container">
+        <!-- Jeu 1 : Finnie Escape -->
+        <a class="game-card" href="finnie-escape.html">
+            <img src="https://img.gamemonetize.com/9m7b1g3apiu7nazxcn863ymcmga4ud3y/512x512.jpg" alt="Finnie Escape">
+            <p>Finnie Escape</p>
+        </a>
+
+        <!-- Jeu 2 : Last Call Drunken Boxer -->
+        <a class="game-card" href="drunken-boxer.html">
+            <img src="https://img.gamemonetize.com/drunken-boxer/512x512.jpg" alt="Last Call: Drunken Boxer">
+            <p>Drunken Boxer</p>
+        </a>
+    </div>
 
 </body>
 </html>
