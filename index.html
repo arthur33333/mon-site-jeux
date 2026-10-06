@@ -112,6 +112,7 @@
       display: flex;
       flex-direction: column;
       border: 1px solid #334155;
+      text-decoration: none;
     }
 
     .card:hover {
@@ -163,8 +164,8 @@
     .modal-content {
       background: #0f172a;
       width: 100%;
-      max-width: 900px;
-      height: 80vh;
+      max-width: 950px;
+      height: 85vh;
       border-radius: 12px;
       overflow: hidden;
       display: flex;
@@ -223,8 +224,8 @@
       <div class="categories">
         <button class="cat-btn active" onclick="filterCategory('all', this)">Tous</button>
         <button class="cat-btn" onclick="filterCategory('action', this)">Action</button>
-        <button class="cat-btn" onclick="filterCategory('course', this)">Course</button>
-        <button class="cat-btn" onclick="filterCategory('sport', this)">Sport</button>
+        <button class="cat-btn" onclick="filterCategory('arcade', this)">Arcade</button>
+        <button class="cat-btn" onclick="filterCategory('puzzle', this)">Puzzle</button>
       </div>
     </div>
   </header>
@@ -232,64 +233,71 @@
   <main>
     <div class="grid" id="gamesGrid">
       
-      <div class="card" data-category="action" data-title="subway surfers" onclick="playGame('Subway Surfers', 'https://html5.gamedistribution.com/b801a309f4464c18a5948fcf70977461/')">
-        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Subway Surfers">
+      <!-- Jeu 1 -->
+      <div class="card" data-category="arcade" data-title="2048" onclick="playGame('2048', 'https://play2048.co/')">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="2048">
         <div class="card-info">
-          <div class="card-title">Subway Surfers</div>
+          <div class="card-title">2048</div>
+          <div class="card-tag">Puzzle / Réflexion</div>
+        </div>
+      </div>
+
+      <!-- Jeu 2 -->
+      <div class="card" data-category="action" data-title="geometry dash" onclick="playGame('Geometry Dash', 'https://scratch.mit.edu/projects/105500895/embed')">
+        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Geometry Dash">
+        <div class="card-info">
+          <div class="card-title">Geometry Dash</div>
           <div class="card-tag">Action / Runner</div>
         </div>
       </div>
 
-      <div class="card" data-category="course" data-title="moto x3m" onclick="playGame('Moto X3M', 'https://html5.gamedistribution.com/5c0e1fa6bc1e4d5fb83f5872df89ee0f/')">
-        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=600&q=80" alt="Moto X3M">
+      <!-- Jeu 3 -->
+      <div class="card" data-category="arcade" data-title="pacman" onclick="playGame('Pac-Man', 'https://freepacman.org/')">
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Pac-Man">
         <div class="card-info">
-          <div class="card-title">Moto X3M</div>
-          <div class="card-tag">Course / Stunt</div>
+          <div class="card-title">Pac-Man</div>
+          <div class="card-tag">Arcade / Rétro</div>
         </div>
       </div>
 
-      <div class="card" data-category="action" data-title="temple run 2" onclick="playGame('Temple Run 2', 'https://html5.gamedistribution.com/f104d4128f7344bb8357a701a35368a8/')">
-        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80" alt="Temple Run 2">
+      <!-- Jeu 4 -->
+      <div class="card" data-category="puzzle" data-title="tetris" onclick="playGame('Tetris', 'https://tetris.com/play-tetris')">
+        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Tetris">
         <div class="card-info">
-          <div class="card-title">Temple Run 2</div>
-          <div class="card-tag">Action</div>
+          <div class="card-title">Tetris</div>
+          <div class="card-tag">Puzzle</div>
         </div>
       </div>
 
-      <div class="card" data-category="sport" data-title="basketball stars" onclick="playGame('Basketball Stars', 'https://html5.gamedistribution.com/6b8c8d35661a4f0b83e3c155554f67c2/')">
-        <img src="https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=600&q=80" alt="Basketball Stars">
+      <!-- Jeu 5 -->
+      <div class="card" data-category="action" data-title="flappy bird" onclick="playGame('Flappy Bird', 'https://flappybird.io/')">
+        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80" alt="Flappy Bird">
         <div class="card-info">
-          <div class="card-title">Basketball Stars</div>
-          <div class="card-tag">Sport</div>
+          <div class="card-title">Flappy Bird</div>
+          <div class="card-tag">Arcade</div>
         </div>
       </div>
 
-      <div class="card" data-category="course" data-title="drift boss" onclick="playGame('Drift Boss', 'https://html5.gamedistribution.com/9a5840bd837f485e9fa0ef2701b9795e/')">
-        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=600&q=80" alt="Drift Boss">
+      <!-- Jeu 6 -->
+      <div class="card" data-category="arcade" data-title="snake" onclick="playGame('Snake Game', 'https://playsnake.org/')">
+        <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=600&q=80" alt="Snake">
         <div class="card-info">
-          <div class="card-title">Drift Boss</div>
-          <div class="card-tag">Course</div>
-        </div>
-      </div>
-
-      <div class="card" data-category="sport" data-title="8 ball pool" onclick="playGame('8 Ball Pool', 'https://html5.gamedistribution.com/f8f411b023f04d7088b6dfc406085a6e/')">
-        <img src="https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?auto=format&fit=crop&w=600&q=80" alt="8 Ball Pool">
-        <div class="card-info">
-          <div class="card-title">8 Ball Pool</div>
-          <div class="card-tag">Sport</div>
+          <div class="card-title">Snake Game</div>
+          <div class="card-tag">Arcade</div>
         </div>
       </div>
 
     </div>
   </main>
 
+  <!-- Modal Lecteur de jeu -->
   <div class="modal" id="gameModal">
     <div class="modal-content">
       <div class="modal-header">
         <span class="modal-title" id="modalTitle">Nom du Jeu</span>
         <button class="close-btn" onclick="closeGame()">Fermer ✖</button>
       </div>
-      <iframe id="gameFrame" src="" allowfullscreen></iframe>
+      <iframe id="gameFrame" src="" allow="autoplay; payment; fullscreen" sandbox="allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-same-origin allow-scripts"></iframe>
     </div>
   </div>
 
