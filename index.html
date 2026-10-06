@@ -3,202 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Shooter - ArcadePulse</title>
+    <title>ArcadePulse - Finnie Escape</title>
     <style>
-        body {
+        html, body {
             margin: 0;
             padding: 0;
-            background-color: #050510;
-            color: #fff;
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             overflow: hidden;
+            background-color: #000;
         }
-        #game-container {
-            position: relative;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        canvas {
-            background: #000;
-            display: block;
-        }
-        .instructions {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #aaa;
-            text-align: center;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
 
-    <div id="game-container">
-        <canvas id="spaceCanvas" width="480" height="640"></canvas>
-    </div>
-    <div class="instructions">
-        <strong>Contrôles :</strong> Clavier (Flèches / Espace) ou Souris / Tactile
-    </div>
+    <iframe src="https://html5.gamemonetize.co/9m7b1g3apiu7nazxcn863ymcmga4ud3y/" allowfullscreen></iframe>
 
-<script>
-const canvas = document.getElementById('spaceCanvas');
-const ctx = canvas.getContext('2d');
-
-let score = 0;
-let gameOver = false;
-
-const player = {
-    x: canvas.width / 2 - 20,
-    y: canvas.height - 60,
-    width: 40,
-    height: 40,
-    speed: 6,
-    dx: 0
-};
-
-const bullets = [];
-const enemies = [];
-let enemyTimer = 0;
-
-const stars = Array.from({ length: 50 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2 + 1,
-    speed: Math.random() * 3 + 1
-}));
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'q') player.dx = -player.speed;
-    if (e.key === 'ArrowRight' || e.key === 'd') player.dx = player.speed;
-    if (e.key === ' ' || e.key === 'ArrowUp') shoot();
-    if (gameOver && e.key === ' ') restartGame();
-});
-
-document.addEventListener('keyup', (e) => {
-    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'q' || e.key === 'd') player.dx = 0;
-});
-
-canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    player.x = e.clientX - rect.left - player.width / 2;
-});
-
-canvas.addEventListener('click', () => {
-    if (gameOver) restartGame();
-    else shoot();
-});
-
-function shoot() {
-    bullets.push({ x: player.x + player.width / 2 - 3, y: player.y, width: 6, height: 15, speed: 8 });
-}
-
-function spawnEnemy() {
-    enemies.push({ x: Math.random() * (canvas.width - 30), y: -30, width: 30, height: 30, speed: Math.random() * 2 + 2, color: '#ff0055' });
-}
-
-function update() {
-    if (gameOver) return;
-
-    player.x += player.dx;
-    if (player.x < 0) player.x = 0;
-    if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
-
-    stars.forEach(star => {
-        star.y += star.speed;
-        if (star.y > canvas.height) star.y = 0;
-    });
-
-    bullets.forEach((bullet, index) => {
-        bullet.y -= bullet.speed;
-        if (bullet.y < 0) bullets.splice(index, 1);
-    });
-
-    enemyTimer++;
-    if (enemyTimer % 40 === 0) spawnEnemy();
-
-    enemies.forEach((enemy, eIndex) => {
-        enemy.y += enemy.speed;
-
-        if (enemy.y + enemy.height > canvas.height || 
-           (enemy.x < player.x + player.width && enemy.x + enemy.width > player.x &&
-            enemy.y < player.y + player.height && enemy.y + enemy.height > player.y)) {
-            gameOver = true;
-        }
-
-        bullets.forEach((bullet, bIndex) => {
-            if (bullet.x < enemy.x + enemy.width && bullet.x + bullet.width > enemy.x &&
-                bullet.y < enemy.y + enemy.height && bullet.y + bullet.height > enemy.y) {
-                enemies.splice(eIndex, 1);
-                bullets.splice(bIndex, 1);
-                score += 10;
-            }
-        });
-    });
-}
-
-function draw() {
-    ctx.fillStyle = '#050510';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.fillStyle = '#ffffff';
-    stars.forEach(star => ctx.fillRect(star.x, star.y, star.size, star.size));
-
-    if (gameOver) {
-        ctx.fillStyle = '#ff0055';
-        ctx.font = 'bold 36px sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('GAME OVER', canvas.width / 2, canvas.height / 2 - 20);
-        
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '20px sans-serif';
-        ctx.fillText('Score final : ' + score, canvas.width / 2, canvas.height / 2 + 20);
-        ctx.font = '16px sans-serif';
-        ctx.fillText('Cliquez pour rejouer', canvas.width / 2, canvas.height / 2 + 60);
-        return;
-    }
-
-    ctx.fillStyle = '#00ffcc';
-    ctx.beginPath();
-    ctx.moveTo(player.x + player.width / 2, player.y);
-    ctx.lineTo(player.x, player.y + player.height);
-    ctx.lineTo(player.x + player.width, player.y + player.height);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = '#ffea00';
-    bullets.forEach(bullet => ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height));
-
-    enemies.forEach(enemy => {
-        ctx.fillStyle = enemy.color;
-        ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
-    });
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = '18px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.fillText('Score: ' + score, 15, 30);
-}
-
-function restartGame() {
-    score = 0;
-    enemies.length = 0;
-    bullets.length = 0;
-    gameOver = false;
-    player.x = canvas.width / 2 - 20;
-}
-
-function loop() {
-    update();
-    draw();
-    requestAnimationFrame(loop);
-}
-
-loop();
-</script>
 </body>
 </html>
