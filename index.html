@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcadePulse - Portail de Jeux</title>
+    <title>ArcadePulse - Plus de 1000 Jeux</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #fff; padding: 20px; }
         header { text-align: center; margin-bottom: 25px; }
         h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 8px; }
         p.subtitle { color: #94a3b8; }
+        #status { text-align: center; margin-bottom: 20px; color: #38bdf8; font-weight: bold; }
         
         /* Modal du jeu */
         #game-modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 1000; flex-direction: column;
+            background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column;
         }
         #game-modal header { display: flex; justify-content: space-between; padding: 15px 25px; background: #1e293b; margin: 0; }
         #game-modal iframe { width: 100%; height: 100%; border: none; }
@@ -22,24 +23,26 @@
 
         /* Grille des jeux */
         .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px; max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px; max-width: 1400px; margin: 0 auto;
         }
         .game-card {
             background: #1e293b; border-radius: 12px; overflow: hidden; text-align: center;
             cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
         }
-        .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3); }
-        .game-card img { width: 100%; height: 150px; object-fit: cover; }
-        .game-card p { padding: 12px; font-weight: bold; font-size: 0.95rem; }
+        .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4); }
+        .game-card img { width: 100%; height: 140px; object-fit: cover; }
+        .game-card p { padding: 10px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🎮 ArcadePulse</h1>
-        <p class="subtitle">Sélectionnez un jeu pour jouer instantanément</p>
+        <h1>🎮 ArcadePulse - Catalogue Géant</h1>
+        <p class="subtitle">Des centaines de jeux prêts à jouer instantanément</p>
     </header>
+
+    <div id="status">Chargement du catalogue de jeux...</div>
 
     <!-- Conteneur du jeu actif -->
     <div id="game-modal">
@@ -50,35 +53,41 @@
         <iframe id="game-iframe" src="" allowfullscreen></iframe>
     </div>
 
-    <!-- Grille générée automatiquement -->
-    <div class="grid-container" id="games-grid">
-        <p>Chargement des jeux...</p>
-    </div>
+    <!-- Grille des jeux -->
+    <div class="grid-container" id="games-grid"></div>
 
     <script>
-        // Lien de votre flux JSON GameMonetize
-        const FEED_URL = 'https://gamemonetize.com/feed.php?format=0&num=50&page=1';
+        const MAX_PAGES = 20; // Charge 20 pages x 50 jeux = 1 000 jeux au total
+        const grid = document.getElementById('games-grid');
+        const statusDiv = document.getElementById('status');
+        let totalLoaded = 0;
 
-        async function loadGames() {
-            try {
-                const response = await fetch(FEED_URL);
-                const games = await response.json();
-                const grid = document.getElementById('games-grid');
-                grid.innerHTML = '';
+        async function fetchAllGames() {
+            for (let page = 1; page <= MAX_PAGES; page++) {
+                try {
+                    const response = await fetch(`https://gamemonetize.com/feed.php?format=0&num=50&page=${page}`);
+                    const games = await response.json();
 
-                games.forEach(game => {
-                    const card = document.createElement('div');
-                    card.className = 'game-card';
-                    card.onclick = () => openGame(game.title, game.url);
-                    card.innerHTML = `
-                        <img src="${game.thumb}" alt="${game.title}">
-                        <p>${game.title}</p>
-                    `;
-                    grid.appendChild(card);
-                });
-            } catch (error) {
-                console.error("Erreur lors du chargement du flux :", error);
+                    if (!games || games.length === 0) break;
+
+                    games.forEach(game => {
+                        const card = document.createElement('div');
+                        card.className = 'game-card';
+                        card.onclick = () => openGame(game.title, game.url);
+                        card.innerHTML = `
+                            <img src="${game.thumb}" alt="${game.title}" loading="lazy">
+                            <p>${game.title}</p>
+                        `;
+                        grid.appendChild(card);
+                        totalLoaded++;
+                    });
+
+                    statusDiv.innerText = `${totalLoaded} jeux chargés...`;
+                } catch (error) {
+                    console.error(`Erreur page ${page}:`, error);
+                }
             }
+            statusDiv.innerText = `✅ Total : ${totalLoaded} jeux disponibles !`;
         }
 
         function openGame(title, url) {
@@ -92,8 +101,8 @@
             document.getElementById('game-iframe').src = '';
         }
 
-        // Lancer le chargement automatique
-        loadGames();
+        // Lancement de la récupération massive
+        fetchAllGames();
     </script>
 
 </body>
