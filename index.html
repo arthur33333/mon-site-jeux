@@ -1,31 +1,100 @@
-<div class="grid-container">
-        <!-- Jeu 1 -->
-        <a class="game-card" href="finnie-escape.html">
-            <img src="https://img.gamemonetize.com/9m7b1g3apiu7nazxcn863ymcmga4ud3y/512x512.jpg" alt="Finnie Escape">
-            <p>Finnie Escape</p>
-        </a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArcadePulse - Portail de Jeux</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #fff; padding: 20px; }
+        header { text-align: center; margin-bottom: 25px; }
+        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 8px; }
+        p.subtitle { color: #94a3b8; }
+        
+        /* Modal du jeu */
+        #game-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); z-index: 1000; flex-direction: column;
+        }
+        #game-modal header { display: flex; justify-content: space-between; padding: 15px 25px; background: #1e293b; margin: 0; }
+        #game-modal iframe { width: 100%; height: 100%; border: none; }
+        .close-btn { background: #ef4444; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        <!-- Jeu 2 -->
-        <a class="game-card" href="drunken-boxer.html">
-            <img src="https://img.gamemonetize.com/9m7b1g3apiu7nazxcn863ymcmga4ud3y/512x512.jpg" alt="Drunken Boxer">
-            <p>Drunken Boxer</p>
-        </a>
+        /* Grille des jeux */
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px; max-width: 1200px; margin: 0 auto;
+        }
+        .game-card {
+            background: #1e293b; border-radius: 12px; overflow: hidden; text-align: center;
+            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3); }
+        .game-card img { width: 100%; height: 150px; object-fit: cover; }
+        .game-card p { padding: 12px; font-weight: bold; font-size: 0.95rem; }
+    </style>
+</head>
+<body>
 
-        <!-- Jeu 3 -->
-        <a class="game-card" href="game3.html">
-            <img src="https://img.gamemonetize.com/omo4cdstc5pxq29rk5w7sm0k5m2ieoob/512x512.jpg" alt="Double Dragon">
-            <p>Double Dragon</p>
-        </a>
+    <header>
+        <h1>🎮 ArcadePulse</h1>
+        <p class="subtitle">Sélectionnez un jeu pour jouer instantanément</p>
+    </header>
 
-        <!-- Jeu 4 -->
-        <a class="game-card" href="game4.html">
-            <img src="https://img.gamemonetize.com/omo4cdstc5pxq29rk5w7sm0k5m2ieoob/512x512.jpg" alt="Jeu 4">
-            <p>Jeu 4</p>
-        </a>
-
-        <!-- Jeu 5 -->
-        <a class="game-card" href="game5.html">
-            <img src="https://img.gamemonetize.com/omo4cdstc5pxq29rk5w7sm0k5m2ieoob/512x512.jpg" alt="Jeu 5">
-            <p>Jeu 5</p>
-        </a>
+    <!-- Conteneur du jeu actif -->
+    <div id="game-modal">
+        <header>
+            <h2 id="game-title">Jeu</h2>
+            <button class="close-btn" onclick="closeGame()">❌ Fermer le jeu</button>
+        </header>
+        <iframe id="game-iframe" src="" allowfullscreen></iframe>
     </div>
+
+    <!-- Grille générée automatiquement -->
+    <div class="grid-container" id="games-grid">
+        <p>Chargement des jeux...</p>
+    </div>
+
+    <script>
+        // Lien de votre flux JSON GameMonetize
+        const FEED_URL = 'https://gamemonetize.com/feed.php?format=0&num=50&page=1';
+
+        async function loadGames() {
+            try {
+                const response = await fetch(FEED_URL);
+                const games = await response.json();
+                const grid = document.getElementById('games-grid');
+                grid.innerHTML = '';
+
+                games.forEach(game => {
+                    const card = document.createElement('div');
+                    card.className = 'game-card';
+                    card.onclick = () => openGame(game.title, game.url);
+                    card.innerHTML = `
+                        <img src="${game.thumb}" alt="${game.title}">
+                        <p>${game.title}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            } catch (error) {
+                console.error("Erreur lors du chargement du flux :", error);
+            }
+        }
+
+        function openGame(title, url) {
+            document.getElementById('game-title').innerText = title;
+            document.getElementById('game-iframe').src = url;
+            document.getElementById('game-modal').style.display = 'flex';
+        }
+
+        function closeGame() {
+            document.getElementById('game-modal').style.display = 'none';
+            document.getElementById('game-iframe').src = '';
+        }
+
+        // Lancer le chargement automatique
+        loadGames();
+    </script>
+
+</body>
+</html>
