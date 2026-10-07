@@ -2,15 +2,17 @@ const fs = require("fs");
 const path = require("path");
 
 const BASE_URL = "https://mon-site-jeux-dqxm.vercel.app";
-const FEED_URL = "https://gamemonetize.com/feed.php?format=0&num=50&page=";
+const FEED_URL =
+  "https://gamemonetize.com/feed.php?format=0&num=50&page=";
 
-const TOTAL_PAGES = 10; // 10 × 50 = jusqu'à 500 jeux
+const TOTAL_PAGES = 10;
+const GAMES_PER_PAGE = 50;
 
 const gamesDir = path.join(process.cwd(), "games");
-const manifestFile = path.join(gamesDir, "_generated.json");
+const manifestPath = path.join(gamesDir, "_generated.json");
 
 function escapeHtml(value) {
-  return String(value ?? "")
+  return String(value || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
@@ -19,7 +21,7 @@ function escapeHtml(value) {
 }
 
 function slugify(text) {
-  return String(text ?? "game")
+  return String(text || "game")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -33,6 +35,7 @@ function getTitle(game) {
     game.title ||
     game.name ||
     game.game_name ||
+    game.gameTitle ||
     "Free Online Game"
   );
 }
@@ -44,6 +47,7 @@ function getGameUrl(game) {
     game.gameurl ||
     game.link ||
     game.play_url ||
+    game.game_link ||
     ""
   );
 }
@@ -55,45 +59,67 @@ function getThumbnail(game) {
     game.image ||
     game.image_url ||
     game.thumb_url ||
+    game.thumbnail_url ||
     ""
   );
 }
 
 function getDescription(game, title) {
-  return (
+  const description =
     game.description ||
     game.desc ||
-    `Play ${title} online for free on ArcadePulse. Enjoy this game directly in your browser with no download required.`
-  );
+    game.summary ||
+    "";
+
+  if (description) {
+    return description;
+  }
+
+  return `Play ${title} online for free on ArcadePulse. Enjoy this browser game instantly with no download required.`;
 }
 
-function cleanUrl(url) {
-  if (!url) return "";
+function validUrl(value) {
+  if (!value) {
+    return "";
+  }
 
   try {
-    const parsed = new URL(url);
+    const url = new URL(value);
 
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+    if (
+      url.protocol !== "http:" &&
+      url.protocol !== "https:"
+    ) {
       return "";
     }
 
-    return parsed.href;
+    return url.href;
   } catch {
     return "";
   }
 }
 
-async function fetchGames() {
+async function getGames() {
   const allGames = [];
 
   for (let page = 1; page <= TOTAL_PAGES; page++) {
-    try {
-      console.log(`Fetching GameMonetize page ${page}/${TOTAL_PAGES}...`);
+    const url = `${FEED_URL}${page}`;
 
-      const response = await fetch(`${FEED_URL}${page}`);
+    console.log(
+      `Downloading GameMonetize page ${page}/${TOTAL_PAGES}...`
+    );
+
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": "ArcadePulse Game Generator"
+        }
+      });
 
       if (!response.ok) {
-        console.log(`Page ${page} failed: HTTP ${response.status}`);
+        console.log(
+          `Page ${page} returned HTTP ${response.status}`
+        );
         continue;
       }
 
@@ -103,8 +129,10 @@ async function fetchGames() {
 
       try {
         data = JSON.parse(text);
-      } catch {
-        console.log(`Page ${page}: invalid JSON`);
+      } catch (error) {
+        console.log(
+          `Page ${page} did not return valid JSON.`
+        );
         continue;
       }
 
@@ -120,21 +148,26 @@ async function fetchGames() {
         games = data.items;
       }
 
-      console.log(`Page ${page}: ${games.length} games`);
+      console.log(
+        `Found ${games.length} games on page ${page}.`
+      );
 
       allGames.push(...games);
+
     } catch (error) {
-      console.log(`Error on page ${page}:`, error.message);
+      console.log(
+        `Error while downloading page ${page}: ${error.message}`
+      );
     }
   }
 
   return allGames;
 }
 
-function createGamePage(game, slug) {
+function createGameHtml(game, slug) {
   const title = getTitle(game);
-  const gameUrl = cleanUrl(getGameUrl(game));
-  const thumbnail = cleanUrl(getThumbnail(game));
+  const gameUrl = validUrl(getGameUrl(game));
+  const thumbnail = validUrl(getThumbnail(game));
   const description = getDescription(game, title);
 
   if (!gameUrl) {
@@ -146,7 +179,7 @@ function createGamePage(game, slug) {
   const safeGameUrl = escapeHtml(gameUrl);
   const safeThumbnail = escapeHtml(thumbnail);
 
-  const imageHtml = thumbnail
+  const image = thumbnail
     ? `
       <img
         src="${safeThumbnail}"
@@ -157,385 +190,556 @@ function createGamePage(game, slug) {
     `
     : "";
 
+  const canonical =
+    `${BASE_URL}/games/${slug}.html`;
+
   return `<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-  <title>${safeTitle} - Play Free Online | ArcadePulse</title>
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-  <meta
-    name="description"
-    content="${safeDescription}"
-  >
+<title>
+${safeTitle} - Play Free Online | ArcadePulse
+</title>
 
-  <meta name="robots" content="index, follow">
+<meta
+  name="description"
+  content="${safeDescription}"
+>
 
-  <link
-    rel="canonical"
-    href="${BASE_URL}/games/${slug}.html"
-  >
+<meta
+  name="robots"
+  content="index, follow"
+>
 
-  <meta
-    property="og:title"
-    content="${safeTitle} - ArcadePulse"
-  >
+<link
+  rel="canonical"
+  href="${canonical}"
+>
 
-  <meta
-    property="og:description"
-    content="${safeDescription}"
-  >
+<meta
+  property="og:title"
+  content="${safeTitle} - ArcadePulse"
+>
 
-  ${
-    thumbnail
-      ? `<meta property="og:image" content="${safeThumbnail}">`
-      : ""
+<meta
+  property="og:description"
+  content="${safeDescription}"
+>
+
+<meta
+  property="og:url"
+  content="${canonical}"
+>
+
+<meta
+  property="og:type"
+  content="website"
+>
+
+${
+  thumbnail
+    ? `
+<meta
+  property="og:image"
+  content="${safeThumbnail}"
+>
+`
+    : ""
+}
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #071426;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #0b1d35;
+  border-bottom: 1px solid #1b3557;
+  padding: 20px;
+  text-align: center;
+}
+
+header a {
+  color: #4da3ff;
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 25px 15px 60px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.description {
+  max-width: 850px;
+  margin: 0 auto 25px;
+  color: #b8c7d9;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.game-image {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 25px;
+  border-radius: 12px;
+}
+
+.game-container {
+  background: #0b1d35;
+  border: 1px solid #1b3557;
+  border-radius: 12px;
+  padding: 15px;
+}
+
+iframe {
+  display: block;
+  width: 100%;
+  height: 650px;
+  border: 0;
+  border-radius: 8px;
+  background: #000000;
+}
+
+.back {
+  display: inline-block;
+  margin-top: 25px;
+  color: #4da3ff;
+  text-decoration: none;
+}
+
+.back:hover {
+  text-decoration: underline;
+}
+
+footer {
+  padding: 30px;
+  text-align: center;
+  color: #8294aa;
+  border-top: 1px solid #1b3557;
+}
+
+@media (max-width: 700px) {
+
+  h1 {
+    font-size: 25px;
   }
 
-  <meta
-    property="og:url"
-    content="${BASE_URL}/games/${slug}.html"
-  >
-
-  <meta property="og:type" content="website">
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #071426;
-      color: #ffffff;
-    }
-
-    header {
-      background: #0b1d35;
-      padding: 20px;
-      text-align: center;
-      border-bottom: 1px solid #1b3557;
-    }
-
-    header a {
-      color: #4da3ff;
-      text-decoration: none;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    main {
-      max-width: 1200px;
-      margin: auto;
-      padding: 25px 15px 60px;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 32px;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      max-width: 800px;
-      margin: 0 auto 25px;
-      text-align: center;
-      color: #b8c7d9;
-      line-height: 1.6;
-    }
-
-    .game-container {
-      background: #0b1d35;
-      border: 1px solid #1b3557;
-      border-radius: 12px;
-      padding: 15px;
-      overflow: hidden;
-    }
-
-    iframe {
-      width: 100%;
-      height: 650px;
-      border: 0;
-      border-radius: 8px;
-      background: #000;
-    }
-
-    .game-image {
-      display: block;
-      max-width: 300px;
-      width: 100%;
-      margin: 0 auto 20px;
-      border-radius: 10px;
-    }
-
-    .back {
-      display: inline-block;
-      margin-top: 20px;
-      color: #4da3ff;
-      text-decoration: none;
-    }
-
-    .back:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      color: #8294aa;
-      padding: 30px;
-      border-top: 1px solid #1b3557;
-    }
-
-    @media (max-width: 700px) {
-      h1 {
-        font-size: 25px;
-      }
-
-      iframe {
-        height: 500px;
-      }
-    }
-  </style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoGame",
-    "name": ${JSON.stringify(title)},
-    "description": ${JSON.stringify(description)},
-    "url": ${JSON.stringify(`${BASE_URL}/games/${slug}.html`)}
+  iframe {
+    height: 500px;
   }
-  </script>
+
+}
+
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": ${JSON.stringify(title)},
+  "description": ${JSON.stringify(description)},
+  "url": ${JSON.stringify(canonical)}
+}
+</script>
 
 </head>
 
 <body>
 
 <header>
-  <a href="${BASE_URL}/">ArcadePulse</a>
+
+<a href="${BASE_URL}/">
+ArcadePulse
+</a>
+
 </header>
 
 <main>
 
-  <h1>${safeTitle}</h1>
+<h1>
+${safeTitle}
+</h1>
 
-  <p class="description">
-    ${safeDescription}
-  </p>
+<p class="description">
+${safeDescription}
+</p>
 
-  ${imageHtml}
+${image}
 
-  <div class="game-container">
+<div class="game-container">
 
-    <iframe
-      src="${safeGameUrl}"
-      title="${safeTitle}"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
+<iframe
+  src="${safeGameUrl}"
+  title="${safeTitle}"
+  allowfullscreen
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
 
-  </div>
+</div>
 
-  <a class="back" href="${BASE_URL}/">
-    ← Back to all free online games
-  </a>
+<a
+  class="back"
+  href="${BASE_URL}/"
+>
+← Back to all free online games
+</a>
 
 </main>
 
 <footer>
-  © ${new Date().getFullYear()} ArcadePulse — Free Online Games
+
+© ${new Date().getFullYear()}
+ArcadePulse — Free Online Games
+
 </footer>
 
 </body>
+
 </html>
 `;
 }
 
 function createGamesIndex(games) {
-  const cards = games
+  const list = games
     .map(
       game => `
-        <li>
-          <a href="/games/${game.slug}.html">
-            ${escapeHtml(game.title)}
-          </a>
-        </li>
-      `
+<li>
+  <a href="/games/${game.slug}.html">
+    ${escapeHtml(game.title)}
+  </a>
+</li>
+`
     )
-    .join("\n");
+    .join("");
 
   return `<!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Games - ArcadePulse</title>
-<meta name="description" content="Browse free online games on ArcadePulse.">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="${BASE_URL}/games/">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+All Free Online Games | ArcadePulse
+</title>
+
+<meta
+  name="description"
+  content="Browse and play free online games on ArcadePulse."
+>
+
+<meta
+  name="robots"
+  content="index, follow"
+>
+
+<link
+  rel="canonical"
+  href="${BASE_URL}/games/"
+>
+
 <style>
+
 body {
-  background:#071426;
-  color:white;
-  font-family:Arial,sans-serif;
-  max-width:1000px;
-  margin:auto;
-  padding:30px;
+  background: #071426;
+  color: white;
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: auto;
+  padding: 30px;
 }
+
 a {
-  color:#4da3ff;
+  color: #4da3ff;
 }
+
 li {
-  margin:10px 0;
+  margin: 10px 0;
 }
+
 </style>
+
 </head>
+
 <body>
-<h1>All Free Online Games</h1>
-<p>Browse and play free online games on ArcadePulse.</p>
+
+<h1>
+All Free Online Games
+</h1>
+
+<p>
+Browse and play free online games on ArcadePulse.
+</p>
+
 <ul>
-${cards}
+
+${list}
+
 </ul>
+
 </body>
+
 </html>`;
 }
 
+function createSitemap(games) {
+  const urls = [];
+
+  urls.push(`
+<url>
+  <loc>${BASE_URL}/</loc>
+  <changefreq>daily</changefreq>
+  <priority>1.0</priority>
+</url>
+`);
+
+  urls.push(`
+<url>
+  <loc>${BASE_URL}/games/</loc>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+</url>
+`);
+
+  for (const game of games) {
+    urls.push(`
+<url>
+  <loc>${BASE_URL}/games/${game.slug}.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+`);
+  }
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+>
+
+${urls.join("")}
+
+</urlset>
+`;
+}
+
 async function main() {
-  console.log("Starting ArcadePulse game generator...");
 
-  fs.mkdirSync(gamesDir, { recursive: true });
+  console.log("");
+  console.log("====================================");
+  console.log(" ArcadePulse SEO Game Generator");
+  console.log("====================================");
+  console.log("");
 
-  // Remove only pages created by the previous generator run.
-  if (fs.existsSync(manifestFile)) {
+  fs.mkdirSync(gamesDir, {
+    recursive: true
+  });
+
+  // Remove ONLY files created by this generator previously.
+  if (fs.existsSync(manifestPath)) {
+
     try {
+
       const oldFiles = JSON.parse(
-        fs.readFileSync(manifestFile, "utf8")
+        fs.readFileSync(
+          manifestPath,
+          "utf8"
+        )
       );
 
-      for (const file of oldFiles) {
-        const filePath = path.join(gamesDir, file);
+      for (const filename of oldFiles) {
+
+        const filePath =
+          path.join(
+            gamesDir,
+            filename
+          );
 
         if (fs.existsSync(filePath)) {
           fs.unlinkSync(filePath);
         }
+
       }
-    } catch {
-      console.log("Could not read previous manifest.");
+
+    } catch (error) {
+
+      console.log(
+        "Previous manifest could not be read."
+      );
+
     }
   }
 
-  const rawGames = await fetchGames();
+  const rawGames =
+    await getGames();
 
-  const usedSlugs = new Set();
-  const generatedGames = [];
+  console.log("");
+  console.log(
+    `Total games received: ${rawGames.length}`
+  );
+
+  const usedSlugs =
+    new Set();
+
+  const generatedGames =
+    [];
 
   for (const game of rawGames) {
-    const title = getTitle(game);
-    const gameUrl = cleanUrl(getGameUrl(game));
+
+    const title =
+      getTitle(game);
+
+    const gameUrl =
+      validUrl(
+        getGameUrl(game)
+      );
 
     if (!title || !gameUrl) {
       continue;
     }
 
-    let baseSlug = slugify(title);
-    let slug = baseSlug;
-    let counter = 2;
+    let baseSlug =
+      slugify(title);
 
-    while (usedSlugs.has(slug)) {
-      slug = `${baseSlug}-${counter}`;
-      counter++;
+    let slug =
+      baseSlug;
+
+    let number = 2;
+
+    while (
+      usedSlugs.has(slug)
+    ) {
+
+      slug =
+        `${baseSlug}-${number}`;
+
+      number++;
+
     }
 
     usedSlugs.add(slug);
 
-    const html = createGamePage(game, slug);
+    const html =
+      createGameHtml(
+        game,
+        slug
+      );
 
     if (!html) {
       continue;
     }
 
-    const filename = `${slug}.html`;
+    const filename =
+      `${slug}.html`;
 
     fs.writeFileSync(
-      path.join(gamesDir, filename),
+      path.join(
+        gamesDir,
+        filename
+      ),
       html,
       "utf8"
     );
 
     generatedGames.push({
-      title,
-      slug,
-      filename
+      title: title,
+      slug: slug,
+      filename: filename
     });
+
   }
 
-  const manifest = generatedGames.map(game => game.filename);
-
+  // Save list of generated files.
   fs.writeFileSync(
-    manifestFile,
-    JSON.stringify(manifest, null, 2),
+    manifestPath,
+    JSON.stringify(
+      generatedGames.map(
+        game => game.filename
+      ),
+      null,
+      2
+    ),
     "utf8"
   );
 
-  // Create games index
+  // Create the games directory index.
   fs.writeFileSync(
-    path.join(gamesDir, "index.html"),
-    createGamesIndex(generatedGames),
+    path.join(
+      gamesDir,
+      "index.html"
+    ),
+    createGamesIndex(
+      generatedGames
+    ),
     "utf8"
   );
 
-  // Create sitemap
-  const urls = [
-    `
-    <url>
-      <loc>${BASE_URL}/</loc>
-      <changefreq>daily</changefreq>
-      <priority>1.0</priority>
-    </url>
-    `,
-    `
-    <url>
-      <loc>${BASE_URL}/games/</loc>
-      <changefreq>daily</changefreq>
-      <priority>0.8</priority>
-    </url>
-    `
-  ];
-
-  for (const game of generatedGames) {
-    urls.push(`
-    <url>
-      <loc>${BASE_URL}/games/${game.slug}.html</loc>
-      <changefreq>weekly</changefreq>
-      <priority>0.7</priority>
-    </url>
-    `);
-  }
-
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.join("\n")}
-</urlset>
-`;
-
+  // Update sitemap.xml.
   fs.writeFileSync(
-    path.join(process.cwd(), "sitemap.xml"),
-    sitemap,
+    path.join(
+      process.cwd(),
+      "sitemap.xml"
+    ),
+    createSitemap(
+      generatedGames
+    ),
     "utf8"
   );
 
   console.log("");
-  console.log("=================================");
-  console.log(`Generated ${generatedGames.length} game pages`);
-  console.log("Sitemap updated");
-  console.log("=================================");
+  console.log("====================================");
+  console.log(
+    `Generated pages: ${generatedGames.length}`
+  );
+  console.log("Sitemap updated.");
+  console.log("====================================");
+  console.log("");
+
 }
 
 main().catch(error => {
-  console.error(error);
+
+  console.error("");
+  console.error(
+    "GENERATION FAILED:"
+  );
+  console.error(
+    error
+  );
+  console.error("");
+
   process.exit(1);
+
 });
