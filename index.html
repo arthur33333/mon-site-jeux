@@ -1,109 +1,676 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ArcadePulse - Plus de 1000 Jeux</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #fff; padding: 20px; }
-        header { text-align: center; margin-bottom: 25px; }
-        h1 { color: #38bdf8; font-size: 2.2rem; margin-bottom: 8px; }
-        p.subtitle { color: #94a3b8; }
-        #status { text-align: center; margin-bottom: 20px; color: #38bdf8; font-weight: bold; }
-        
-        /* Modal du jeu */
-        #game-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column;
-        }
-        #game-modal header { display: flex; justify-content: space-between; padding: 15px 25px; background: #1e293b; margin: 0; }
-        #game-modal iframe { width: 100%; height: 100%; border: none; }
-        .close-btn { background: #ef4444; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        /* Grille des jeux */
+    <title>Free Online Games - Play 1000+ Games | ArcadePulse</title>
+
+    <meta name="description" content="Play free online games instantly on ArcadePulse. Discover 1000+ browser games including action, arcade, adventure, puzzle, sports and casual games.">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="ArcadePulse">
+
+    <link rel="canonical" href="https://mon-site-jeux-dqxm.vercel.app/">
+
+    <meta property="og:title" content="Free Online Games - ArcadePulse">
+    <meta property="og:description" content="Play 1000+ free online browser games including arcade, action, adventure, puzzle and sports games.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mon-site-jeux-dqxm.vercel.app/">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f172a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* HEADER */
+
+        header.main-header {
+            text-align: center;
+            padding: 35px 20px 25px;
+            background: #111c35;
+            border-bottom: 1px solid #24324d;
+        }
+
+        h1 {
+            color: #38bdf8;
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.05rem;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            background: #172238;
+            padding: 12px 10px;
+            position: sticky;
+            top: 0;
+            z-index: 500;
+            border-bottom: 1px solid #263653;
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        nav a {
+            padding: 8px 14px;
+            border-radius: 20px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+        }
+
+        nav a:hover {
+            background: #243653;
+            color: #38bdf8;
+        }
+
+        /* SEO INTRO */
+
+        .intro {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .intro h2 {
+            color: #f8fafc;
+            margin-bottom: 12px;
+            font-size: 1.7rem;
+        }
+
+        .intro p {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        /* SEARCH */
+
+        .search-container {
+            max-width: 700px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        #search {
+            width: 100%;
+            padding: 15px 18px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+            background: #1e293b;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        #search:focus {
+            border-color: #38bdf8;
+        }
+
+        /* STATUS */
+
+        #status {
+            text-align: center;
+            margin: 20px;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        /* GAME GRID */
+
         .grid-container {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 20px; max-width: 1400px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
         }
+
         .game-card {
-            background: #1e293b; border-radius: 12px; overflow: hidden; text-align: center;
-            cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #29384f;
         }
-        .game-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(56, 189, 248, 0.4); }
-        .game-card img { width: 100%; height: 140px; object-fit: cover; }
-        .game-card p { padding: 10px; font-weight: bold; font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+            border-color: #38bdf8;
+        }
+
+        .game-card img {
+            display: block;
+            width: 100%;
+            height: 145px;
+            object-fit: cover;
+            background: #111827;
+        }
+
+        .game-card p {
+            padding: 12px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* SEO CATEGORIES */
+
+        .categories {
+            max-width: 1100px;
+            margin: 20px auto 50px;
+            padding: 0 20px;
+        }
+
+        .categories h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .category {
+            background: #1e293b;
+            padding: 16px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+
+        .category strong {
+            color: #38bdf8;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid #263653;
+            padding: 35px 20px;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        footer h2 {
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        footer p {
+            max-width: 800px;
+            margin: auto;
+            font-size: 0.9rem;
+        }
+
+        /* GAME MODAL */
+
+        #game-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 2000;
+            flex-direction: column;
+        }
+
+        #game-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 18px;
+            background: #1e293b;
+        }
+
+        #game-title {
+            font-size: 1rem;
+            color: #ffffff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #game-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000000;
+        }
+
+        .close-btn {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 9px 15px;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .close-btn:hover {
+            background: #dc2626;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 0;
+            }
+
+            header.main-header {
+                padding: 28px 15px 22px;
+            }
+
+            .grid-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                padding: 0 12px 30px;
+            }
+
+            .game-card img {
+                height: 115px;
+            }
+
+            .game-card p {
+                font-size: 0.8rem;
+                padding: 9px;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>🎮 ArcadePulse - Catalogue Géant</h1>
-        <p class="subtitle">Des centaines de jeux prêts à jouer instantanément</p>
-    </header>
+<header class="main-header">
+    <h1>Free Online Games - Play 1000+ Games</h1>
 
-    <div id="status">Chargement du catalogue de jeux...</div>
+    <p class="subtitle">
+        Play free online games instantly on ArcadePulse.
+        Discover arcade, action, adventure, puzzle, sports and casual games.
+    </p>
+</header>
 
-    <!-- Conteneur du jeu actif -->
-    <div id="game-modal">
-        <header>
-            <h2 id="game-title">Jeu</h2>
-            <button class="close-btn" onclick="closeGame()">❌ Fermer le jeu</button>
-        </header>
-        <iframe id="game-iframe" src="" allowfullscreen></iframe>
+<nav aria-label="Game categories">
+    <div class="nav-inner">
+        <a href="#games">All Games</a>
+        <a href="#categories">Arcade Games</a>
+        <a href="#categories">Action Games</a>
+        <a href="#categories">Adventure Games</a>
+        <a href="#categories">Puzzle Games</a>
+        <a href="#categories">Sports Games</a>
+        <a href="#categories">Casual Games</a>
+    </div>
+</nav>
+
+<main>
+
+    <section class="intro">
+        <h2>Play Free Online Games Without Downloading</h2>
+
+        <p>
+            Looking for free online games? ArcadePulse brings together
+            thousands of browser games that you can play instantly.
+            Enjoy action games, arcade games, adventure games, puzzle games,
+            sports games and casual games directly in your browser.
+        </p>
+    </section>
+
+    <div class="search-container">
+        <label for="search" style="display:none;">Search online games</label>
+
+        <input
+            type="search"
+            id="search"
+            placeholder="Search for a game..."
+            autocomplete="off"
+        >
     </div>
 
-    <!-- Grille des jeux -->
-    <div class="grid-container" id="games-grid"></div>
+    <div id="status">
+        Loading free online games...
+    </div>
 
-    <script>
-        const MAX_PAGES = 20; // Charge 20 pages x 50 jeux = 1 000 jeux au total
-        const grid = document.getElementById('games-grid');
-        const statusDiv = document.getElementById('status');
-        let totalLoaded = 0;
+    <section id="games" aria-label="Free online games">
+        <div class="grid-container" id="games-grid"></div>
+    </section>
 
-        async function fetchAllGames() {
-            for (let page = 1; page <= MAX_PAGES; page++) {
-                try {
-                    const response = await fetch(`https://gamemonetize.com/feed.php?format=0&num=50&page=${page}`);
-                    const games = await response.json();
+    <section class="categories" id="categories">
+        <h2>Popular Online Game Categories</h2>
 
-                    if (!games || games.length === 0) break;
+        <div class="category-grid">
 
-                    games.forEach(game => {
-                        const card = document.createElement('div');
-                        card.className = 'game-card';
-                        card.onclick = () => openGame(game.title, game.url);
-                        card.innerHTML = `
-                            <img src="${game.thumb}" alt="${game.title}" loading="lazy">
-                            <p>${game.title}</p>
-                        `;
-                        grid.appendChild(card);
-                        totalLoaded++;
-                    });
+            <div class="category">
+                <strong>Arcade Games</strong>
+                <p>Fast and fun arcade games.</p>
+            </div>
 
-                    statusDiv.innerText = `${totalLoaded} jeux chargés...`;
-                } catch (error) {
-                    console.error(`Erreur page ${page}:`, error);
+            <div class="category">
+                <strong>Action Games</strong>
+                <p>Exciting action games to play online.</p>
+            </div>
+
+            <div class="category">
+                <strong>Adventure Games</strong>
+                <p>Explore new worlds and adventures.</p>
+            </div>
+
+            <div class="category">
+                <strong>Puzzle Games</strong>
+                <p>Challenge your brain with puzzles.</p>
+            </div>
+
+            <div class="category">
+                <strong>Sports Games</strong>
+                <p>Play sports games directly in your browser.</p>
+            </div>
+
+            <div class="category">
+                <strong>Casual Games</strong>
+                <p>Relax and enjoy simple casual games.</p>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<!-- GAME MODAL -->
+
+<div id="game-modal" role="dialog" aria-modal="true" aria-label="Game player">
+
+    <div id="game-modal-header">
+
+        <h2 id="game-title">Game</h2>
+
+        <button
+            class="close-btn"
+            id="close-game"
+            type="button"
+            aria-label="Close game"
+        >
+            ✕ Close Game
+        </button>
+
+    </div>
+
+    <iframe
+        id="game-iframe"
+        src=""
+        allowfullscreen
+        loading="lazy"
+        title="Online game"
+    ></iframe>
+
+</div>
+
+<footer>
+
+    <h2>ArcadePulse - Free Online Games</h2>
+
+    <p>
+        ArcadePulse is a free online gaming website where you can discover
+        and play browser games instantly. Browse our collection of arcade,
+        action, adventure, puzzle, sports and casual games without downloading
+        software.
+    </p>
+
+    <p style="margin-top:15px;">
+        © 2026 ArcadePulse. All games are provided by their respective
+        game publishers and platforms.
+    </p>
+
+</footer>
+
+<script>
+
+    const MAX_PAGES = 20;
+    const grid = document.getElementById("games-grid");
+    const statusDiv = document.getElementById("status");
+    const searchInput = document.getElementById("search");
+
+    const modal = document.getElementById("game-modal");
+    const iframe = document.getElementById("game-iframe");
+    const gameTitle = document.getElementById("game-title");
+    const closeButton = document.getElementById("close-game");
+
+    let totalLoaded = 0;
+    let allGames = [];
+
+    /*
+     * Creates a game card safely.
+     * Text is inserted with textContent instead of innerHTML.
+     */
+
+    function createGameCard(game) {
+
+        const card = document.createElement("article");
+        card.className = "game-card";
+
+        const image = document.createElement("img");
+
+        image.src = game.thumb || "";
+        image.alt = `${game.title || "Online game"} - Play free online`;
+        image.loading = "lazy";
+
+        const title = document.createElement("p");
+
+        title.textContent = game.title || "Online Game";
+
+        card.appendChild(image);
+        card.appendChild(title);
+
+        card.addEventListener("click", function () {
+
+            openGame(
+                game.title || "Online Game",
+                game.url
+            );
+
+        });
+
+        return card;
+    }
+
+
+    /*
+     * Opens the selected game.
+     */
+
+    function openGame(title, url) {
+
+        if (!url) return;
+
+        gameTitle.textContent = title;
+        iframe.title = `${title} - Free Online Game`;
+        iframe.src = url;
+
+        modal.style.display = "flex";
+
+        document.body.style.overflow = "hidden";
+    }
+
+
+    /*
+     * Closes the game.
+     */
+
+    function closeGame() {
+
+        modal.style.display = "none";
+
+        iframe.src = "";
+
+        document.body.style.overflow = "";
+    }
+
+
+    closeButton.addEventListener("click", closeGame);
+
+
+    /*
+     * Escape key closes the game.
+     */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+            closeGame();
+        }
+
+    });
+
+
+    /*
+     * Search games.
+     */
+
+    searchInput.addEventListener("input", function() {
+
+        const query = searchInput.value
+            .toLowerCase()
+            .trim();
+
+        grid.innerHTML = "";
+
+        const filteredGames = allGames.filter(function(game) {
+
+            return (game.title || "")
+                .toLowerCase()
+                .includes(query);
+
+        });
+
+        filteredGames.forEach(function(game) {
+
+            grid.appendChild(createGameCard(game));
+
+        });
+
+        statusDiv.textContent =
+            `${filteredGames.length} games found`;
+
+    });
+
+
+    /*
+     * Loads games from GameMonetize.
+     */
+
+    async function fetchAllGames() {
+
+        statusDiv.textContent =
+            "Loading free online games...";
+
+        for (let page = 1; page <= MAX_PAGES; page++) {
+
+            try {
+
+                const response = await fetch(
+                    `https://gamemonetize.com/feed.php?format=0&num=50&page=${page}`
+                );
+
+                if (!response.ok) {
+                    throw new Error(
+                        `HTTP ${response.status}`
+                    );
                 }
+
+                const games = await response.json();
+
+                if (!Array.isArray(games) || games.length === 0) {
+                    break;
+                }
+
+                games.forEach(function(game) {
+
+                    if (!game || !game.url || !game.title) {
+                        return;
+                    }
+
+                    allGames.push(game);
+
+                    grid.appendChild(
+                        createGameCard(game)
+                    );
+
+                    totalLoaded++;
+
+                });
+
+                statusDiv.textContent =
+                    `${totalLoaded}+ free online games loaded...`;
+
+            } catch (error) {
+
+                console.error(
+                    `Error loading page ${page}:`,
+                    error
+                );
+
             }
-            statusDiv.innerText = `✅ Total : ${totalLoaded} jeux disponibles !`;
         }
 
-        function openGame(title, url) {
-            document.getElementById('game-title').innerText = title;
-            document.getElementById('game-iframe').src = url;
-            document.getElementById('game-modal').style.display = 'flex';
-        }
+        statusDiv.textContent =
+            totalLoaded > 0
+                ? `🎮 ${totalLoaded}+ free online games available`
+                : "Games could not be loaded. Please try again later.";
 
-        function closeGame() {
-            document.getElementById('game-modal').style.display = 'none';
-            document.getElementById('game-iframe').src = '';
-        }
+    }
 
-        // Lancement de la récupération massive
-        fetchAllGames();
-    </script>
+
+    fetchAllGames();
+
+</script>
 
 </body>
 </html>
