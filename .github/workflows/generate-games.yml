@@ -1,0 +1,45 @@
+name: Generate SEO Game Pages
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate game pages
+        run: node scripts/generate-games.js
+
+      - name: Check generated files
+        run: |
+          echo "Generated game pages:"
+          find games -maxdepth 1 -name "*.html" | wc -l
+
+      - name: Commit generated pages
+        run: |
+          git config user.name "ArcadePulse Bot"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add games sitemap.xml
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-update game pages and sitemap"
+            git push
+          fi
