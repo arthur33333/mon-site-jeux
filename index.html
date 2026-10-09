@@ -1,8 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="google-site-verification" content="063eC2O9YVXgU-E5iy1zYT6hgRqY6OikatmHOhkONL4" />
 
     <title>Free Online Games - Play 1000+ Games | ArcadePulse</title>
 
@@ -319,7 +322,6 @@
         }
 
         @media (max-width: 600px) {
-
             header.main-header {
                 padding: 28px 15px 22px;
             }
@@ -350,20 +352,16 @@
 <body>
 
 <header class="main-header">
-
     <h1>Free Online Games - Play 1000+ Games</h1>
 
     <p class="subtitle">
         Play free online games instantly on ArcadePulse.
         Discover arcade, action, adventure, puzzle, sports and casual games.
     </p>
-
 </header>
 
 <nav aria-label="Game categories">
-
     <div class="nav-inner">
-
         <a href="#games">All Games</a>
         <a href="#arcade">Arcade Games</a>
         <a href="#action">Action Games</a>
@@ -371,15 +369,12 @@
         <a href="#puzzle">Puzzle Games</a>
         <a href="#sports">Sports Games</a>
         <a href="#casual">Casual Games</a>
-
     </div>
-
 </nav>
 
 <main>
 
     <section class="intro">
-
         <h2>Play Free Online Games Without Downloading</h2>
 
         <p>
@@ -388,11 +383,9 @@
             arcade games, adventure games, puzzle games, sports games and
             casual games directly in your browser.
         </p>
-
     </section>
 
     <div class="search-container">
-
         <label for="search" style="display:none;">
             Search online games
         </label>
@@ -403,7 +396,6 @@
             placeholder="Search for a game..."
             autocomplete="off"
         >
-
     </div>
 
     <div id="status">
@@ -416,13 +408,10 @@
     </div>
 
     <section id="games" aria-label="Free online games">
-
         <div class="grid-container" id="games-grid"></div>
-
     </section>
 
     <section class="categories" id="categories">
-
         <h2>Popular Online Game Categories</h2>
 
         <div class="category-grid">
@@ -458,11 +447,9 @@
             </a>
 
         </div>
-
     </section>
 
     <section class="seo-section">
-
         <h2>Play Browser Games Online for Free</h2>
 
         <p>
@@ -484,15 +471,12 @@
             and computers. Open a game, start playing and discover new games
             from our growing collection.
         </p>
-
     </section>
 
 </main>
 
 <div id="game-modal" role="dialog" aria-modal="true" aria-label="Game player">
-
     <div id="game-modal-header">
-
         <h2 id="game-title">Game</h2>
 
         <button
@@ -503,7 +487,6 @@
         >
             ✕ Close Game
         </button>
-
     </div>
 
     <iframe
@@ -513,11 +496,9 @@
         loading="lazy"
         title="Online game"
     ></iframe>
-
 </div>
 
 <footer>
-
     <h2>ArcadePulse - Free Online Games</h2>
 
     <p>
@@ -529,11 +510,9 @@
         © 2026 ArcadePulse. All games are provided by their respective
         publishers and platforms.
     </p>
-
 </footer>
 
 <script>
-
     const API_URL =
         "https://gamemonetize.com/feed.php?format=0&num=50&page=1";
 
@@ -567,13 +546,10 @@
 
     let totalLoaded = 0;
 
-
     /*
      * CREATE GAME CARD
      */
-
     function createGameCard(game) {
-
         const card =
             document.createElement("article");
 
@@ -602,11 +578,9 @@
             "Online Game";
 
         card.appendChild(image);
-
         card.appendChild(title);
 
         card.addEventListener("click", function() {
-
             openGame(
                 game.title ||
                 game.name ||
@@ -617,23 +591,17 @@
                 game.gameurl ||
                 game.link
             );
-
         });
 
         return card;
     }
 
-
     /*
      * OPEN GAME
      */
-
     function openGame(title, url) {
-
         if (!url) {
-
             alert("Game URL is not available.");
-
             return;
         }
 
@@ -649,13 +617,10 @@
         document.body.style.overflow = "hidden";
     }
 
-
     /*
      * CLOSE GAME
      */
-
     function closeGame() {
-
         modal.style.display = "none";
 
         iframe.src = "";
@@ -663,105 +628,62 @@
         document.body.style.overflow = "";
     }
 
-
-    closeButton.addEventListener(
-        "click",
-        closeGame
-    );
-
+    closeButton.addEventListener("click", closeGame);
 
     /*
      * ESC KEY
      */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
-
-                closeGame();
-
-            }
-
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeGame();
         }
-    );
-
+    });
 
     /*
      * SEARCH
      */
+    searchInput.addEventListener("input", function() {
+        const query =
+            searchInput.value
+            .toLowerCase()
+            .trim();
 
-    searchInput.addEventListener(
-        "input",
-        function() {
+        grid.innerHTML = "";
 
-            const query =
-                searchInput.value
-                .toLowerCase()
-                .trim();
+        const filteredGames =
+            allGames.filter(function(game) {
+                const title =
+                    game.title ||
+                    game.name ||
+                    "";
 
-            grid.innerHTML = "";
+                return title
+                    .toLowerCase()
+                    .includes(query);
+            });
 
-            const filteredGames =
-                allGames.filter(
-                    function(game) {
+        filteredGames.forEach(function(game) {
+            grid.appendChild(createGameCard(game));
+        });
 
-                        const title =
-                            game.title ||
-                            game.name ||
-                            "";
-
-                        return title
-                            .toLowerCase()
-                            .includes(query);
-
-                    }
-                );
-
-            filteredGames.forEach(
-                function(game) {
-
-                    grid.appendChild(
-                        createGameCard(game)
-                    );
-
-                }
-            );
-
-            statusDiv.textContent =
-                `${filteredGames.length} games found`;
-
-        }
-    );
-
+        statusDiv.textContent =
+            `${filteredGames.length} games found`;
+    });
 
     /*
      * LOAD ONE PAGE
-     *
-     * We use response.text()
-     * first so we can see exactly
-     * what GameMonetize returns.
      */
-
     async function loadPage(page) {
-
         const url =
             `https://gamemonetize.com/feed.php?format=0&num=50&page=${page}`;
 
-        const response =
-            await fetch(url);
+        const response = await fetch(url);
 
         if (!response.ok) {
-
-            throw new Error(
-                `HTTP ${response.status}`
-            );
-
+            throw new Error(`HTTP ${response.status}`);
         }
 
-        const text =
-            await response.text();
+        const text = await response.text();
 
         console.log(
             `GameMonetize page ${page}:`,
@@ -771,12 +693,8 @@
         let games;
 
         try {
-
-            games =
-                JSON.parse(text);
-
+            games = JSON.parse(text);
         } catch (error) {
-
             console.error(
                 "GameMonetize returned:",
                 text
@@ -785,32 +703,23 @@
             throw new Error(
                 "GameMonetize response is not valid JSON."
             );
-
         }
 
         if (!Array.isArray(games)) {
-
-            console.log(
-                "GameMonetize data:",
-                games
-            );
+            console.log("GameMonetize data:", games);
 
             throw new Error(
                 "Unexpected GameMonetize data format."
             );
-
         }
 
         return games;
     }
 
-
     /*
      * LOAD ALL GAMES
      */
-
     async function fetchAllGames() {
-
         statusDiv.textContent =
             "Loading free online games...";
 
@@ -822,122 +731,77 @@
 
         totalLoaded = 0;
 
-
         for (
             let page = 1;
             page <= MAX_PAGES;
             page++
         ) {
-
             try {
+                const games = await loadPage(page);
 
-                const games =
-                    await loadPage(page);
-
-
-                if (
-                    !games ||
-                    games.length === 0
-                ) {
-
+                if (!games || games.length === 0) {
                     break;
-
                 }
 
-
-                games.forEach(
-                    function(game) {
-
-                        if (!game) {
-                            return;
-                        }
-
-                        const title =
-                            game.title ||
-                            game.name;
-
-                        const url =
-                            game.url ||
-                            game.game_url ||
-                            game.gameurl ||
-                            game.link;
-
-                        if (!title || !url) {
-                            return;
-                        }
-
-                        allGames.push(game);
-
-                        grid.appendChild(
-                            createGameCard(game)
-                        );
-
-                        totalLoaded++;
-
+                games.forEach(function(game) {
+                    if (!game) {
+                        return;
                     }
-                );
 
+                    const title =
+                        game.title ||
+                        game.name;
+
+                    const url =
+                        game.url ||
+                        game.game_url ||
+                        game.gameurl ||
+                        game.link;
+
+                    if (!title || !url) {
+                        return;
+                    }
+
+                    allGames.push(game);
+
+                    grid.appendChild(createGameCard(game));
+
+                    totalLoaded++;
+                });
 
                 statusDiv.textContent =
                     `${totalLoaded}+ free online games loaded...`;
 
-
             } catch (error) {
-
                 console.error(
                     `Error loading page ${page}:`,
                     error
                 );
 
-                /*
-                 * If page 1 fails,
-                 * show the error.
-                 */
-
                 if (page === 1) {
-
-                    errorBox.style.display =
-                        "block";
-
+                    errorBox.style.display = "block";
                 }
 
-                /*
-                 * Do not stop the entire
-                 * website if a later page fails.
-                 */
-
                 break;
-
             }
-
         }
-
 
         if (totalLoaded > 0) {
-
             statusDiv.textContent =
                 `🎮 ${totalLoaded}+ free online games available`;
-
         } else {
+            statusDiv.textContent = "No games loaded.";
 
-            statusDiv.textContent =
-                "No games loaded.";
-
-            errorBox.style.display =
-                "block";
-
+            errorBox.style.display = "block";
         }
-
     }
-
 
     /*
      * START
      */
-
     fetchAllGames();
-
 </script>
 
 </body>
 </html>
+```
