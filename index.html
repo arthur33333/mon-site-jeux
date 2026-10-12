@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,16 +6,16 @@
 
     <meta name="google-site-verification" content="063eC2O9YVXgU-E5iy1zYT6hgRqY6OikatmHOhkONL4" />
 
-    <title>Free Online Games - Play 1000+ Games | ArcadePulse</title>
+    <title>Free Online Games - Play 1000+ Browser Games | ArcadePulse</title>
 
-    <meta name="description" content="Play free online games instantly on ArcadePulse. Discover action, arcade, adventure, puzzle, sports and casual browser games. No download required.">
-    <meta name="robots" content="index, follow">
+    <meta name="description" content="Play free online games instantly on ArcadePulse. Discover action, arcade, adventure, puzzle, sports and casual browser games. No download or installation required.">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <meta name="author" content="ArcadePulse">
 
     <link rel="canonical" href="https://mon-site-jeux-dqxm.vercel.app/">
 
     <meta property="og:title" content="Free Online Games | ArcadePulse">
-    <meta property="og:description" content="Play free online browser games instantly.">
+    <meta property="og:description" content="Play free online browser games instantly without downloading.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mon-site-jeux-dqxm.vercel.app/">
 
@@ -685,29 +684,17 @@
 
         const text = await response.text();
 
-        console.log(
-            `GameMonetize page ${page}:`,
-            text.substring(0, 500)
-        );
-
         let games;
 
         try {
             games = JSON.parse(text);
         } catch (error) {
-            console.error(
-                "GameMonetize returned:",
-                text
-            );
-
             throw new Error(
                 "GameMonetize response is not valid JSON."
             );
         }
 
         if (!Array.isArray(games)) {
-            console.log("GameMonetize data:", games);
-
             throw new Error(
                 "Unexpected GameMonetize data format."
             );
@@ -773,11 +760,6 @@
                     `${totalLoaded}+ free online games loaded...`;
 
             } catch (error) {
-                console.error(
-                    `Error loading page ${page}:`,
-                    error
-                );
-
                 if (page === 1) {
                     errorBox.style.display = "block";
                 }
@@ -804,4 +786,3 @@
 
 </body>
 </html>
-```
