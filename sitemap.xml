@@ -18,6 +18,18 @@
 </url>
 
 <url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/stickman-kombat-2d.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/fragbyte.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/ironwake-tank-combat.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
@@ -30,7 +42,67 @@
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/fragbyte.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/shadow-fist-kung-fu.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/warehouse-wobble-3d.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/tactical-response-team.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/people-blaster.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/taiga-expedition.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/terminal-nine.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/witchy.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/shooter-tactical-strike.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/bucket-sort-3d.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/steal-my-egg.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/cake-stack.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -1441,78 +1513,6 @@
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/demolition-tycoon-3d.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/chips-bakery-simulator.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/box-press-puzzle.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/unite-words.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/candy-shop-3d-match-puzzle.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/blasties.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/marblemaze2.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/draw-the-railball-physics.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/snow-plow-inc.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/ricochet-paint-aim.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/wood-builder-tycoon.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/tiny-zomby-the-barricade.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/worm-path.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
