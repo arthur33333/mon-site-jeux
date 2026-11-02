@@ -18,6 +18,18 @@
 </url>
 
 <url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/anti-spider-run.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/lane-shooter.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/fps-block-strike-dust2.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
@@ -1501,18 +1513,6 @@
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/home-hauler-simulator.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/architects-of-tomorrow.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/zombie-drift-steel-rage.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>

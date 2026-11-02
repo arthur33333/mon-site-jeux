@@ -1,4 +1,6 @@
 [
+  "anti-spider-run.html",
+  "lane-shooter.html",
   "fps-block-strike-dust2.html",
   "rim-rebels-3v3.html",
   "blocktrail-2048.html",
@@ -246,7 +248,5 @@
   "crazy-plinko.html",
   "build-a-keycap-pyramid.html",
   "geometryrush.html",
-  "home-hauler-simulator.html",
-  "architects-of-tomorrow.html",
-  "zombie-drift-steel-rage.html"
+  "home-hauler-simulator.html"
 ]
