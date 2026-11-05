@@ -18,13 +18,49 @@
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/obby-1-roll-ice-cream.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/buggy-blast.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/survive-zombie-arena.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/obby-snow-shoveling.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/obby-1-roll-ice-cream.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/sky-fling.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/girl-crush-escape.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/scary-toilet-monster-game.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/hive-rush-bee-swarm.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -60,19 +96,7 @@
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/buggy-blast.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/arrow-survival-15-seconds-demo.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/survive-zombie-arena.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -1489,30 +1513,6 @@
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/muscle-rush-3d.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/double-boy-jump.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/pedro-double-cross.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/chicken-escape.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/paint-quest-kiddo.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
