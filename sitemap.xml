@@ -18,6 +18,66 @@
 </url>
 
 <url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/princess-adventure.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/wreck-kings-car.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/fart-monkeys-obby-parkour.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/italian-brainrot-tung-tung-tung-sahur.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/jelly-vortex-3d.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/flying-ants-quest.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/kart-volcano.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/regolith.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/turbo-colis.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/hover-rush.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/zombie-survival-blackout.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
@@ -1453,66 +1513,6 @@
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/the-space-mover.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/rainbow-ball-runner-2048.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/sky-ace-stunt-plane-islands.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/halloween-tile-tumble.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/stand-modes-and-cases-3d.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/sunfield-vegetable-farm.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/clearfell-forest-outpost.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/villadash-hero-rescue.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/steal-car-duel.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/cadillacs-dino-riot.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/simulator-gt-motorsport.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
