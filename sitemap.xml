@@ -18,19 +18,67 @@
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/funny-walk.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/my-cute-panda-house.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/brainrot-knight.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/toon-hero-superhero-game.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/moto-rush-highway-rider.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/frosty-boulder.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/paws-gears.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/blockcraft-shooter-2027.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/oops-milo.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/chip-off.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/undead-walking-2.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/nummerge-2048-puzzle.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/ants-daily-life.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/bull-run-ranch.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -42,13 +90,55 @@
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/hush-maze-horror-escape.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/brainrot-knight.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
 
 <url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/bull-run-ranch.html</loc>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/funny-walk.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/blocky-hoops.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/zombie-charge.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/cat-amp-dog-rope-buddies.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/drone-simulator-fpv-racing.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/erase-the-extra-part.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/moto-rush-highway-rider.html</loc>
+  <changefreq>weekly</changefreq>
+  <priority>0.7</priority>
+</url>
+
+<url>
+  <loc>https://mon-site-jeux-dqxm.vercel.app/games/hush-maze-horror-escape.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
@@ -1423,96 +1513,6 @@
 
 <url>
   <loc>https://mon-site-jeux-dqxm.vercel.app/games/4x4-fury-offroad-jeep.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/snake-warz-eat-amp-survive.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/body-evolution-game.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/dream-kids-monster-blaster.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/hidden-shop-hunt.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/pusher-monsters.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/million-coin-vault.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/crazy-geometry-dash.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/clever-match.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/card-sort-solitaire.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/overstuffed.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/king-of-boxer.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/chromatic-coil.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/cover-shooting-gun-game.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/blockfront.html</loc>
-  <changefreq>weekly</changefreq>
-  <priority>0.7</priority>
-</url>
-
-<url>
-  <loc>https://mon-site-jeux-dqxm.vercel.app/games/slime-jump-crown-quest.html</loc>
   <changefreq>weekly</changefreq>
   <priority>0.7</priority>
 </url>
